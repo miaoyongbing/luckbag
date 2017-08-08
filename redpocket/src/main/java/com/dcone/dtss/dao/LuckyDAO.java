@@ -1,0 +1,51 @@
+package com.dcone.dtss.dao;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.dcone.dtss.model.dc_wallet;
+import com.dcone.dtss.model.ln_record;
+
+public class LuckyDAO {
+
+	/**
+	 * 修改系统红包总余额;
+	添加红包记录;
+	添加交易记录;
+	给用户钱包加入指定数额;
+	*@return 1成功，0连接失败，-1某步操作失败;
+	*/
+	public static int LuckyRain(JdbcTemplate jdbcTemplate, dc_wallet wallet, int lucknumber,int round) {
+		try {
+			Thread.sleep(1000);
+			int i = l_numberDAO.luckyRain(round, lucknumber, jdbcTemplate);
+			int j = ln_recordDAO.newRecord(round, wallet, lucknumber, jdbcTemplate);
+			int k = WalletDAO.walletAddByWid(wallet.getWid(), lucknumber, jdbcTemplate);
+			Date date = new Date();
+			String url1 = " yyyy-MM-dd";
+			String url2 = " HH:mm:ss";
+			SimpleDateFormat fmtDate1 = new SimpleDateFormat(url1);
+			SimpleDateFormat fmtDate2 = new SimpleDateFormat(url2);
+			String temp1 = fmtDate1.format(date) + fmtDate2.format(date);
+			int l = TradeDAO.createTrade(wallet.getWid(), lucknumber, temp1, "红包雨", jdbcTemplate);
+			if (i * j * k * l > 0) {
+				// ok
+				List<ln_record> wanted=ln_recordDAO.getAllRecords(jdbcTemplate);
+				if(wanted!=null)
+					for (ln_record temp : wanted)
+						System.out.println("this is record:"+temp.toString());
+				return 1;
+			} else {
+				return -1;
+				// error
+			}
+		} catch (InterruptedException e) {
+
+		}
+		return 0;
+	}
+	
+}
