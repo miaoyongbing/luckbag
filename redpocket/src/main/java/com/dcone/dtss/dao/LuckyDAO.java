@@ -8,16 +8,25 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.dcone.dtss.model.dc_wallet;
 import com.dcone.dtss.model.ln_record;
-
+/**
+ * 
+ * @author wrs
+ *发红包操作
+ */
 public class LuckyDAO {
 
-	/**
+	
+	/**红包雨；
 	 * 修改系统红包总余额;
-	添加红包记录;
-	添加交易记录;
-	给用户钱包加入指定数额;
-	*@return 1成功，0连接失败，-1某步操作失败;
-	*/
+	 * 添加红包记录;
+	 * 添加交易记录;
+	 * 给用户钱包加入指定数额;
+	 * @param jdbcTemplate
+	 * @param wallet
+	 * @param lucknumber
+	 * @param round
+	 * @return 1成功，0连接失败，-1某步操作失败
+	 */
 	public static int LuckyRain(JdbcTemplate jdbcTemplate, dc_wallet wallet, int lucknumber,int round) {
 		try {
 			Thread.sleep(1000);

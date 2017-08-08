@@ -1,5 +1,10 @@
 package com.dcone.dtss.model;
-
+/**
+ * 
+ * @author wrs
+ *记录用户信息以及钱包信息
+ *是一个视图
+ */
 public class dc_user_wallet {
 	private int uid;
 	private String itcode;

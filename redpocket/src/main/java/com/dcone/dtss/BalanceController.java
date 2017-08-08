@@ -29,18 +29,33 @@ import com.dcone.dtss.model.dc_user;
 import com.dcone.dtss.model.dc_wallet;
 
 import form.WalletForm;
-
+/**
+ * 
+ * @author wrs
+ *钱包账户操作
+ */
 @Controller
 public class BalanceController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BalanceController.class);
 	@Autowired
     JdbcTemplate jdbcTemplate;
-	
+	/**
+	 * 进入充值页面
+	 * @return
+	 */
 	@RequestMapping(value="/balance_add", method=RequestMethod.GET)
 	public String balanceAdd() {
 		return "balance_add";
 	}
+	/**
+	 * 进行充值操作
+	 * @param walletForm 获取表单内容
+	 * @param bindingResult 检查表单内容是否有错
+	 * @param locale
+	 * @param model
+	 * @return 充值结果界面
+	 */
 	@RequestMapping(value="/balance_adding")
 	public String balanceAdding(@Valid WalletForm walletForm ,BindingResult bindingResult ,Locale locale,  Model model) {
 		logger.info("itcode:" +walletForm.getItcode() +"username:"+walletForm.getUsername() + " 充值 "+ walletForm.getAmount());

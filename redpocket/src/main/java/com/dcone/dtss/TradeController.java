@@ -15,10 +15,23 @@ import com.dcone.dtss.dao.UserDAO;
 import com.dcone.dtss.model.dc_trade;
 
 @Controller
+/**
+ * 
+ * @author wrs
+ *交易处理控制器
+ */
 public class TradeController {
 	private static final Logger logger = LoggerFactory.getLogger(BalanceController.class);
 	@Autowired
     JdbcTemplate jdbcTemplate;
+	/**
+	 * 查询某天交易记录
+	 * @param username 用户名
+	 * @param itcode 员工号
+	 * @param date 日期，格式2017-2-1
+	 * @param model 
+	 * @return 查询结果界面
+	 */
 	@RequestMapping(value="/trade_check")
 	public String tradeCheck(String username,String itcode,String date,Model model) {
 		String starttime=date+" 00:00:00",endtime=date+" 23:59:59";

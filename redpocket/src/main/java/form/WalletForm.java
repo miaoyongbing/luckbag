@@ -4,7 +4,14 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
+/**
+ * 
+ * @author wrs
+ *记录充值页面钱包表单
+ *@param username 用户名
+ *@param itcode 员工号
+ *@param amount 充值数额
+ */
 public class WalletForm {
 	@NotNull
 	@Size(min=2,max=10)

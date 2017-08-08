@@ -1,5 +1,9 @@
 package com.dcone.dtss.model;
-
+/**
+ * 
+ * @author wrs
+ *记录红包账户
+ */
 public class l_number {
 	int lid;
 	int round;
@@ -12,6 +16,13 @@ public class l_number {
 		this.tips = tips;
 	}
 	public l_number() {}
+	/**
+	 * 
+	 * @param l_id 红包账户id
+	 * @param round 红包雨轮次
+	 * @param total 红包账户余额
+	 * @param tips 备注
+	 */
 	public l_number(int l_id, int round, int total,String tips) {
 		super();
 		this.lid = l_id;
@@ -19,6 +30,9 @@ public class l_number {
 		this.total = total;
 		this.tips=tips;
 	}
+	/**
+	 * 串行输出
+	 */
 	@Override
 	public String toString() {
 		return "LuckNumber [l_id=" + lid + ", round=" + round + ", total=" + total + ", tips=" + tips + "]";

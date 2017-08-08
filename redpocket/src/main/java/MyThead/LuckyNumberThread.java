@@ -12,11 +12,19 @@ import com.dcone.dtss.dao.ln_recordDAO;
 import com.dcone.dtss.dao.TradeDAO;
 import com.dcone.dtss.dao.WalletDAO;
 import com.dcone.dtss.model.dc_wallet;
-
+/**
+ * 
+ * @author wrs
+ *红包雨线程
+ *需要加入JdbcTemplate，并且需要将flag置为true
+ */
 public class LuckyNumberThread extends Thread {
 	boolean flag = false;
 	JdbcTemplate template;
 	int round=0;
+	/**
+	 * 开始发放红包
+	 */
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub

@@ -14,7 +14,7 @@
 <tr><td>${temp.getRid() }</td><td>${temp.getRound() }</td><td>${temp.getWid() }
 </td><td>${temp.getLucky_number() }</td></tr>
 </c:forEach>
-<a href="admin">返回红包雨界面</a>
+<a href="admin">返回红包雨界面</a><br>
 <a href="/dtss">返回主页</a>
 
 </table>

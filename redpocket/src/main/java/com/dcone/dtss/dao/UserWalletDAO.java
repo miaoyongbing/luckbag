@@ -8,8 +8,18 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.dcone.dtss.model.dc_user;
 import com.dcone.dtss.model.dc_user_wallet;
-
+/**
+ * 
+ * @author wrs
+ *从用户钱包视图中查询
+ */
 public class UserWalletDAO {
+	/**
+	 * 获取用户钱包信息
+	 * @param user 用户
+	 * @param jdbctemplate
+	 * @return 用户钱包信息
+	 */
 	public dc_user_wallet getWallInfoByUser(dc_user user,JdbcTemplate jdbctemplate) {
 		RowMapper<dc_user_wallet> userwalletmapper=new BeanPropertyRowMapper<dc_user_wallet>(dc_user_wallet.class);
 		try {
@@ -21,16 +31,31 @@ public class UserWalletDAO {
 		}
 		return null;
 	}
-	
+	/**
+	 * 获取用户钱包信息
+	 * @param uid 用户id
+	 * @param jdbctemplate
+	 * @return 用户钱包信息
+	 */
 	public dc_user_wallet getWallInfoByUid(int uid,JdbcTemplate jdbctemplate) {
 		dc_user user = UserDAO.getUserByUid(uid, jdbctemplate);
 		return getWallInfoByUser(user, jdbctemplate);
 	}
+	/**
+	 * 获取用户钱包信息
+	 * @param itcode 用户员工号
+	 * @param jdbctemplate
+	 * @return 用户钱包信息
+	 */
 	public dc_user_wallet getWallInfoByItcode(String itcode,JdbcTemplate jdbctemplate) {
 		dc_user user = UserDAO.getUserByItcode(itcode, jdbctemplate);
 		return getWallInfoByUser(user, jdbctemplate);
 	}
-	
+	/**
+	 * 获取全部用户钱包信息
+	 * @param jdbctemplate
+	 * @return 全部用户钱包信息
+	 */
 	public List<dc_user_wallet> getAllWallInfoByUser(JdbcTemplate jdbctemplate) {
 		RowMapper<dc_user_wallet> userwalletmapper=new BeanPropertyRowMapper<dc_user_wallet>(dc_user_wallet.class);
 		try {

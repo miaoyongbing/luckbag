@@ -8,8 +8,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.dcone.dtss.model.*;
-
+/**
+ * 
+ * @author wrs
+ *处理交易信息
+ */
 public class TradeDAO {
+	/**
+	 * 获取用户全部交易
+	 * @param uid 用户id
+	 * @param jdbcTemplate
+	 * @return 用户全部交易
+	 */
 	public List<dc_trade> getTradesByUid(int uid,JdbcTemplate jdbcTemplate){
 		RowMapper<dc_trade> trade_mapper=new BeanPropertyRowMapper<dc_trade>(dc_trade.class);
 		try {
@@ -22,14 +32,34 @@ public class TradeDAO {
 		}
 		return null;
 	}
+	/**
+	 * 获取用户全部交易
+	 * @param itcode 员工号
+	 * @param jdbcTemplate
+	 * @return 用户全部交易
+	 */
 	public List<dc_trade> getTradesByItcode(String itcode,JdbcTemplate jdbcTemplate){
 		dc_user user=UserDAO.getUserByItcode(itcode, jdbcTemplate);
 		return getTradesByUid(user.getUid(), jdbcTemplate);
 	}
+	/**
+	 * 获取用户全部交易
+	 * @param username 用户名
+	 * @param jdbcTemplate
+	 * @return 用户全部交易
+	 */
 	public List<dc_trade> getTradesByUser(String username,JdbcTemplate jdbcTemplate){
 		dc_user user=UserDAO.getUserByName(username, jdbcTemplate);
 		return getTradesByUid(user.getUid(), jdbcTemplate);
 	}
+	/**
+	 * 获取一段时间内用户全部交易
+	 * @param uid 用户id
+	 * @param start 开始时间
+	 * @param end 结束时间
+	 * @param jdbcTemplate
+	 * @return 用户部分交易
+	 */
 	public List<dc_trade> getTimeTradesByUid(int uid,String start,String end,JdbcTemplate jdbcTemplate){
 		RowMapper<dc_trade> trade_mapper=new BeanPropertyRowMapper<dc_trade>(dc_trade.class);
 		try {
@@ -49,19 +79,38 @@ public class TradeDAO {
 		}
 		return null;
 	}
+	/**
+	 * 获取用户一段时间全部交易
+	 * @param itcode 员工号
+	 * @param start 开始时间
+	 * @param end 结束时间
+	 * @param jdbcTemplate
+	 * @return 用户部分交易
+	 */
 	public List<dc_trade> getTimeTradesByItcode(String itcode,String start,String end,JdbcTemplate jdbcTemplate){
 		dc_user user=UserDAO.getUserByItcode(itcode, jdbcTemplate);
 		return getTimeTradesByUid(user.getUid(),start,end, jdbcTemplate);
 	}
+	/**
+	 * 获取用户一段时间全部交易
+	 * @param username 用户名
+	 * @param start 开始时间
+	 * @param end 结束时间
+	 * @param jdbcTemplate
+	 * @return 用户部分交易
+	 */
 	public List<dc_trade> getTimeTradesByUser(String username,String start,String end,JdbcTemplate jdbcTemplate){
 		dc_user user=UserDAO.getUserByName(username, jdbcTemplate);
 		return getTimeTradesByUid(user.getUid(),start,end, jdbcTemplate);
 	}
-	/**
-	 * 判定交易是否能够进行
-	 * @return
-	 */
 	
+	/**
+	 * 判断交易能否进行
+	 * @param wid 钱包id
+	 * @param amount 交易额
+	 * @param jdbcTemplate
+	 * @return true可以，false不行
+	 */
 	private static boolean preTrade(int wid,int amount,JdbcTemplate jdbcTemplate) {
 		RowMapper<dc_wallet> wallet_mapper=new BeanPropertyRowMapper<dc_wallet>(dc_wallet.class);
 		try {
@@ -74,7 +123,16 @@ public class TradeDAO {
 		}
 		return false;
 	}
-	
+	/**
+	 * 创建交易：打赏
+	 * @param wid1 打赏用户钱包id
+	 * @param wid2 被打赏节目钱包id
+	 * @param amount 数额
+	 * @param date 时间
+	 * @param memo 备注
+	 * @param jdbcTemplate
+	 * @return true成功，false失败
+	 */
 	public static boolean createTrade(int wid1,int wid2, int amount, String date , String memo,JdbcTemplate jdbcTemplate) {
 		if(preTrade(wid1,amount, jdbcTemplate)) {
 			//写入交易数据
@@ -89,8 +147,35 @@ public class TradeDAO {
 		}
 		return false;
 	}
+	/**
+	 * 创建发红包交易
+	 * @param wid 钱包id
+	 * @param lucknumber 红包数额
+	 * @param time 时间
+	 * @param tip 备注
+	 * @param jdbcTemplate
+	 * @return 1成功，0失败
+	 */
 	public static int createTrade(int wid,int lucknumber, String time, String tip,JdbcTemplate jdbcTemplate) {
 		
+		return 0;
+	}
+	/**
+	 * 创建交易，充值
+	 * @param wid 钱包id
+	 * @param time 时间
+	 * @param amount 数额
+	 * @param tip 备注
+	 * @param jdbcTemplate
+	 * @return 1成功，0失败
+	 */
+	public static int createTrade(int wid,String time,int amount,String tip,JdbcTemplate jdbcTemplate) {
+		try {
+			int i=jdbcTemplate.update("insert into dc_trade(wid,volume,tradetime,tip) values(?,?,?,?);",new Object[] {wid,amount,time,tip});
+		}catch(Exception e) {
+			System.out.println("创建充值记录失败！");
+			e.printStackTrace();
+		}
 		return 0;
 	}
 }

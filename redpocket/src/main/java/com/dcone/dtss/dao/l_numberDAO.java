@@ -3,8 +3,18 @@ package com.dcone.dtss.dao;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.dcone.dtss.model.l_number;
-
+/**
+ * 
+ * @author wrs
+ *处理红包账户操作
+ */
 public class l_numberDAO {
+	/**
+	 * 获取红包账户余额
+	 * @param i 红包雨轮次
+	 * @param jdbcTemplate
+	 * @return 红包账户余额或者0
+	 */
 	public static int getTotalbyRound(int i,JdbcTemplate jdbcTemplate) {
 		try {
 			int w=jdbcTemplate.queryForInt("select total from luckynumber where round=?;",new Object[] {i});

@@ -15,14 +15,22 @@ import com.dcone.dtss.model.ln_record;
 
 import MyThead.LuckyNumberThread;
 import form.WalletForm;
-
+/**
+ * 
+ * @author wrs
+ *超级用户进行红包雨等操作
+ *后期应设置检查用户是否为超级用户，否则拒绝访问
+ */
 @Controller
 public class AdminController {
 	
 	boolean flag = false;
 	@Autowired
 	JdbcTemplate template;
-	
+	/**判断用户是否登录
+	 * 登录成功后显示admin页面
+	 * @return
+	 */
 	@RequestMapping("/admin")
 	public String admin() {
 		//判断用户是否登录
@@ -31,7 +39,11 @@ public class AdminController {
 	}
 	
 	
-	
+	/**
+	 * 开启红包雨
+	 * @param round 红包雨轮次
+	 * @return 红包雨结果界面
+	 */
 	@RequestMapping("/lucky_on") 
 	public String Lucky_on(String round) {
 		LuckyNumberThread t = new LuckyNumberThread();
@@ -47,7 +59,11 @@ public class AdminController {
 		t.start();
 		return "luckyon";
 	}
-	
+	/**
+	 * 查询全部红包发放记录
+	 * @param model
+	 * @return 显示所有红包发放记录
+	 */
 	@RequestMapping("/viewrecord")
 	public String viewrecord(Model model) {
 		List<ln_record> wanted=ln_recordDAO.getAllRecords(template);

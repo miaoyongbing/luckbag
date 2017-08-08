@@ -8,7 +8,7 @@
 </head>
 <body>
 红包雨开启,一大波红包来袭...
-<a href="admin">返回红包雨界面</a>
+<a href="admin">返回红包雨界面</a><br>
 <a href='/dtss'>返回主页</a>
 </body>
 </html>
