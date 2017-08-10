@@ -21,6 +21,8 @@
 </form>
 <hr>
 开启红包雨<a href="admin">进入红包雨界面</a><hr>
+<a href="luck">进入抢红包界面</a><hr>
+<a href="program">进入打赏界面</a><hr>
 现在服务器的时间是<c:out value="${serverTime }"></c:out>
 
 

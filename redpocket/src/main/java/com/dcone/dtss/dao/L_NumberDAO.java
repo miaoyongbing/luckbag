@@ -8,7 +8,7 @@ import com.dcone.dtss.model.l_number;
  * @author wrs
  *处理红包账户操作
  */
-public class l_numberDAO {
+public class L_NumberDAO {
 	/**
 	 * 获取红包账户余额
 	 * @param i 红包雨轮次

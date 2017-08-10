@@ -9,10 +9,10 @@
 </head>
 <body>
 <table>
-<tr><td>${str1 }</td><td>${str2 }</td><td>${str3 }</td><td>${str4 }</td></tr>
+<tr><td>${str1 }</td><td>${str2 }</td><td>${str3 }</td><td>${str4 }</td><td>${str5 }</td></tr>
 <c:forEach items="${record }" var="temp">
 <tr><td>${temp.getRid() }</td><td>${temp.getRound() }</td><td>${temp.getWid() }
-</td><td>${temp.getLucky_number() }</td></tr>
+</td><td>${temp.getLucky_number() }</td><td>${temp.getTradetime() }</td></tr>
 </c:forEach>
 <a href="admin">返回红包雨界面</a><br>
 <a href="/dtss">返回主页</a>

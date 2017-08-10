@@ -7,8 +7,8 @@ import java.util.Random;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.dcone.dtss.dao.LuckyDAO;
-import com.dcone.dtss.dao.l_numberDAO;
-import com.dcone.dtss.dao.ln_recordDAO;
+import com.dcone.dtss.dao.L_NumberDAO;
+import com.dcone.dtss.dao.LN_RecordDAO;
 import com.dcone.dtss.dao.TradeDAO;
 import com.dcone.dtss.dao.WalletDAO;
 import com.dcone.dtss.model.dc_wallet;
@@ -39,7 +39,7 @@ public class LuckyNumberThread extends Thread {
 		for (dc_wallet temp :  wallets) {
 			System.out.println(temp.toString());
 			if (flag) {
-				int total = l_numberDAO.getTotalbyRound(round, template);
+				int total = L_NumberDAO.getTotalbyRound(round, template);
 				System.out.println("total is:"+total);
 				int lucknumber = 0;
 				Random r = new Random();

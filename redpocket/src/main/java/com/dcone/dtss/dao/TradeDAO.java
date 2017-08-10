@@ -105,7 +105,7 @@ public class TradeDAO {
 	}
 	
 	/**
-	 * 判断交易能否进行
+	 * 判断用户支出交易能否进行
 	 * @param wid 钱包id
 	 * @param amount 交易额
 	 * @param jdbcTemplate
@@ -124,26 +124,21 @@ public class TradeDAO {
 		return false;
 	}
 	/**
-	 * 创建交易：打赏
-	 * @param wid1 打赏用户钱包id
-	 * @param wid2 被打赏节目钱包id
+	 * 创建交易：用户账户转出
+	 * @param wid 打赏用户钱包id
 	 * @param amount 数额
 	 * @param date 时间
 	 * @param memo 备注
 	 * @param jdbcTemplate
 	 * @return true成功，false失败
 	 */
-	public static boolean createTrade(int wid1,int wid2, int amount, String date , String memo,JdbcTemplate jdbcTemplate) {
-		if(preTrade(wid1,amount, jdbcTemplate)) {
+	public static boolean createTrade( String date ,int wid, int amount, String memo,JdbcTemplate jdbcTemplate) {
+		if(preTrade(wid,amount, jdbcTemplate)) {
 			//写入交易数据
-			int i=jdbcTemplate.update("insert into dc_trade(wid,volume,tradetime,tip) values(?,?,?,?)",new Object[] {wid2,amount,date,memo});
-			if(i>0) {
-				i=jdbcTemplate.update("insert into dc_trade(wid,volume,tradetime,tip) values(?,?,?,?)",new Object[] {wid1,amount,date,"转出钱:"+memo});
-				i=jdbcTemplate.update("update dc_wallet set amount=amount-? where wid =?;",new Object[] {amount,wid1});
-				i=jdbcTemplate.update("update dc_wallet set amount=amount+? where wid =?;",new Object[] {amount,wid2});
-				if(i>0)
-					return true;
-			}
+			int i = jdbcTemplate.update("insert into dc_trade(wid,volume,tradetime,tip) values(?,?,?,?)",new Object[] { wid, amount, date, memo });
+			int j = WalletDAO.walletMinusByWid(wid, amount, jdbcTemplate);
+			if (i*j > 0)
+				return true;
 		}
 		return false;
 	}
@@ -161,7 +156,7 @@ public class TradeDAO {
 		return 0;
 	}
 	/**
-	 * 创建交易，充值
+	 * 创建交易，用户账户转入
 	 * @param wid 钱包id
 	 * @param time 时间
 	 * @param amount 数额
@@ -172,6 +167,8 @@ public class TradeDAO {
 	public static int createTrade(int wid,String time,int amount,String tip,JdbcTemplate jdbcTemplate) {
 		try {
 			int i=jdbcTemplate.update("insert into dc_trade(wid,volume,tradetime,tip) values(?,?,?,?);",new Object[] {wid,amount,time,tip});
+			if(i>0)
+				return 1;
 		}catch(Exception e) {
 			System.out.println("创建充值记录失败！");
 			e.printStackTrace();

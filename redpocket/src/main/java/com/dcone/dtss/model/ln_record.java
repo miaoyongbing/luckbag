@@ -9,13 +9,20 @@ public class ln_record {
 	int wid;
 	int lucky_number;
 	int round;
+	String tradetime;
 	/**
 	 * 串行输出
 	 */
 	@Override
 	public String toString() {
 		return "LuckyNumberRecord [rid=" + rid + ", wid=" + wid + ", lucky_number=" + lucky_number + ", round=" + round
-				+ "]";
+				+ ",tradetime="+tradetime+"]";
+	}
+	public String getTradetime() {
+		return tradetime;
+	}
+	public void setTradetime(String tradetime) {
+		this.tradetime = tradetime;
 	}
 	public ln_record() {}
 	/**
@@ -25,12 +32,13 @@ public class ln_record {
 	 * @param luck_number 红包数额
 	 * @param round 红包雨轮次
 	 */
-	public ln_record(int r_id, int wid, int luck_number, int round) {
+	public ln_record(int r_id, int wid, int luck_number, int round,String tradetime) {
 		super();
 		this.rid = r_id;
 		this.wid = wid;
 		this.lucky_number = luck_number;
 		this.round = round;
+		this.tradetime=tradetime;
 	}
 	public int getRid() {
 		return rid;

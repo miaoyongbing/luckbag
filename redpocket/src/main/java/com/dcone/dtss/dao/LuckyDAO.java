@@ -29,20 +29,20 @@ public class LuckyDAO {
 	 */
 	public static int LuckyRain(JdbcTemplate jdbcTemplate, dc_wallet wallet, int lucknumber,int round) {
 		try {
-			Thread.sleep(1000);
-			int i = l_numberDAO.luckyRain(round, lucknumber, jdbcTemplate);
-			int j = ln_recordDAO.newRecord(round, wallet, lucknumber, jdbcTemplate);
-			int k = WalletDAO.walletAddByWid(wallet.getWid(), lucknumber, jdbcTemplate);
 			Date date = new Date();
 			String url1 = " yyyy-MM-dd";
 			String url2 = " HH:mm:ss";
 			SimpleDateFormat fmtDate1 = new SimpleDateFormat(url1);
 			SimpleDateFormat fmtDate2 = new SimpleDateFormat(url2);
 			String temp1 = fmtDate1.format(date) + fmtDate2.format(date);
-			int l = TradeDAO.createTrade(wallet.getWid(), lucknumber, temp1, "ºì°üÓê", jdbcTemplate);
+			Thread.sleep(1000);
+			int i = L_NumberDAO.luckyRain(round, lucknumber, jdbcTemplate);
+			int j = LN_RecordDAO.newRecord(round, wallet, lucknumber, temp1, jdbcTemplate);
+			int k = WalletDAO.walletAddByWid(wallet.getWid(), lucknumber, jdbcTemplate);
+			int l = TradeDAO.createTrade(wallet.getWid(), temp1, lucknumber, "µÚ"+round+"ÂÖºì°üÓê", jdbcTemplate);
 			if (i * j * k * l > 0) {
 				// ok
-				List<ln_record> wanted=ln_recordDAO.getAllRecords(jdbcTemplate);
+				List<ln_record> wanted=LN_RecordDAO.getAllRecords(jdbcTemplate);
 				if(wanted!=null)
 					for (ln_record temp : wanted)
 						System.out.println("this is record:"+temp.toString());

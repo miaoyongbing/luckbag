@@ -11,18 +11,19 @@ import com.dcone.dtss.model.*;
  * @author wrs
  *处理红包记录操作
  */
-public class ln_recordDAO {
+public class LN_RecordDAO {
 	/**
 	 * 创建发红包记录
 	 * @param round 红包雨轮次
 	 * @param wallet 用户钱包
 	 * @param number 红包数额
 	 * @param jdbcTemplate
+	 * @param time  交易时间
 	 * @return 1成功,0失败
 	 */
-	public static int newRecord(int round ,dc_wallet wallet,int number,JdbcTemplate jdbcTemplate) {
+	public static int newRecord(int round ,dc_wallet wallet,int number,String time,JdbcTemplate jdbcTemplate) {
 		try {
-			int i =jdbcTemplate.update("insert into luckynumberrecord(round,wid,lucky_number) values(?,?,?);",new Object[] {round,wallet.getWid(),number});
+			int i =jdbcTemplate.update("insert into luckynumberrecord(round,wid,lucky_number,tradetime) values(?,?,?,?);",new Object[] {round,wallet.getWid(),number,time});
 			if(i>0)
 				return 1;
 		}catch(Exception e) {

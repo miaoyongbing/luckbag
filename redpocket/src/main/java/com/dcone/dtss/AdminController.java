@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.dcone.dtss.dao.LuckyDAO;
 import com.dcone.dtss.dao.WalletDAO;
-import com.dcone.dtss.dao.ln_recordDAO;
+import com.dcone.dtss.dao.LN_RecordDAO;
 import com.dcone.dtss.model.dc_wallet;
 import com.dcone.dtss.model.ln_record;
 
@@ -66,13 +66,14 @@ public class AdminController {
 	 */
 	@RequestMapping("/viewrecord")
 	public String viewrecord(Model model) {
-		List<ln_record> wanted=ln_recordDAO.getAllRecords(template);
-		String str1="",str2="",str3="",str4="";
+		List<ln_record> wanted=LN_RecordDAO.getAllRecords(template);
+		String str1="",str2="",str3="",str4="",str5="";
 		if(wanted!=null) {
 			str1="流水号";
 			str2="红包雨轮次";
 			str3="用户钱包id";
 			str4="红包数额";
+			str5="交易时间";
 		}
 		else {
 			str1="暂无红包雨相关交易记录！";
@@ -81,6 +82,7 @@ public class AdminController {
 		model.addAttribute("str2", str2);
 		model.addAttribute("str3", str3);
 		model.addAttribute("str4", str4);
+		model.addAttribute("str5", str5);
 		model.addAttribute("record",wanted);
 		return "view_record";
 	}

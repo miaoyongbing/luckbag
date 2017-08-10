@@ -11,7 +11,8 @@
 <a href="lucky_on?round=1">开启第一轮红包雨</a><br>
 <a href="lucky_on?round=2">开启第二轮红包雨</a><br>
 <a href="lucky_on?round=3">开启第三轮红包雨</a><br>
-<a href="viewrecord">查看红包发放记录</a>
+<a href="viewrecord">查看红包发放记录</a><br>
+<a href="/dtss">返回主页</a>
 
 </body>
 </html>
