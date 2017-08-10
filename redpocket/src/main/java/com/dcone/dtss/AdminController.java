@@ -1,12 +1,16 @@
 package com.dcone.dtss;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.dcone.dtss.dao.LuckyDAO;
 import com.dcone.dtss.dao.WalletDAO;
 import com.dcone.dtss.dao.LN_RecordDAO;
@@ -31,11 +35,11 @@ public class AdminController {
 	 * 登录成功后显示admin页面
 	 * @return
 	 */
-	@RequestMapping("/admin")
+	@RequestMapping("/luckyadmin")
 	public String admin() {
 		//判断用户是否登录
 		//登录成功后显示admin页面
-		return "admin";
+		return "luckymoney";
 	}
 	
 	
@@ -44,8 +48,9 @@ public class AdminController {
 	 * @param round 红包雨轮次
 	 * @return 红包雨结果界面
 	 */
-	@RequestMapping("/lucky_on") 
+	@RequestMapping("/luck_check") 
 	public String Lucky_on(String round) {
+		System.out.println("红包雨开启！");
 		LuckyNumberThread t = new LuckyNumberThread();
 		t.setTemplate(template);
 		int r = 0;
@@ -57,7 +62,7 @@ public class AdminController {
 		t.setRound(r);
 		t.setFlag(true);		
 		t.start();
-		return "luckyon";
+		return "luckymoney";
 	}
 	/**
 	 * 查询全部红包发放记录

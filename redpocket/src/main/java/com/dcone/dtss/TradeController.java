@@ -1,10 +1,13 @@
 package com.dcone.dtss;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +35,12 @@ public class TradeController {
 	 * @param model 
 	 * @return 查询结果界面
 	 */
+	
 	@RequestMapping(value="/trade_check")
+	@DateTimeFormat(pattern="yyyy-MM-dd") 
 	public String tradeCheck(String username,String itcode,String date,Model model) {
+		
+		//String date1=(new SimpleDateFormat("yyyy-MM-dd")).format(date);
 		String starttime=date+" 00:00:00",endtime=date+" 23:59:59";
 		//UserDAO.unlockUserByItcode(itcode, jdbcTemplate);
 		/*if(UserDAO.isLock(itcode, jdbcTemplate))
